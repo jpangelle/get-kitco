@@ -1,15 +1,14 @@
-const puppeteer = require('puppeteer-core');
 const chromium = require('chrome-aws-lambda');
 
 exports.handler = async () => {
-  const browser = await puppeteer.launch({
+  const browser = await chromium.puppeteer.launch({
     executablePath: await chromium.executablePath,
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    headless: chromium.headless,
+    args: await chromium.args,
+    headless: true,
   });
 
   const page = await browser.newPage();
+
   await page.goto('https://www.kitco.com/jewelry/', {
     waitUntil: 'networkidle2',
   });
