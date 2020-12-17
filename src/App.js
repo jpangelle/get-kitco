@@ -14,8 +14,10 @@ function App() {
       try {
         const { data } = await axios.get('/api/get-kitco');
         setPrice(data.price);
+        setLoading(false);
       } catch {
         setError(true);
+        setLoading(false);
       }
     })();
   }, []);
