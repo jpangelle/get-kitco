@@ -1,25 +1,19 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import axios from 'axios';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [price, setPrice] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get('/api/get-kitco');
+      setPrice(data.price);
+      return data;
+    })();
+  }, []);
+
+  return <div className="App">{price}</div>;
 }
 
 export default App;
